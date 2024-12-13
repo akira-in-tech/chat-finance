@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Financial News</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  <style>
+    body {
+      background: url('{{ url_for("static", filename="img/FinicalMainpage.png") }}') no-repeat center center;
+      background-size: cover;
+      overflow-x: hidden;
+    }
+
+    header {
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.8);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+    }
+
+    header nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    header a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1.2rem;
+      font-family: 'Arial', sans-serif;
+    }
+
+    header a:hover {
+      color: #ffd700;
+    }
+
+    .hero-section {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding-top: 60px;
+      background-color: rgba(0, 0, 0, 0.8);
+      animation: fadeIn 3s ease-in-out;
+    }
+
+    .hero-title {
+      font-size: 4rem;
+      font-weight: bold;
+      font-family: 'Arial Black', sans-serif;
+      color: #ffffff;
+      text-shadow: 3px 3px 6px rgba(0, 0, 0, 1);
+      margin: 0;
+      animation: textZoom 5s ease-in-out;
+    }
+
+    .hero-subtitle {
+      font-size: 1.5rem;
+      font-family: 'Verdana', sans-serif;
+      color: #ffd700;
+      margin: 20px 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes textZoom {
+      0% { font-size: 2rem; }
+      50% { font-size: 5rem; }
+      100% { font-size: 4rem; }
+    }
+
+    .get-news-button {
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      color: #ffffff;
+      background-color: #28a745;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      font-family: 'Verdana', sans-serif;
+    }
+
+    .get-news-button:hover {
+      background-color: #218838;
+    }
+
+    .search-box {
+      margin: 20px 0;
+    }
+
+    .search-input {
+      padding: 10px;
+      font-size: 1rem;
+      width: 300px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .search-button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      color: #fff;
+      background-color: #0071e3;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .search-button:hover {
+      background-color: #005bb5;
+    }
+
+    footer {
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: #ffffff;
+      font-size: 1rem;
+      font-family: 'Verdana', sans-serif;
+    }
+
+    .result-card {
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 10px 0;
+      width: 80%;
+      max-width: 600px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      color: #000;
+      font-family: 'Verdana', sans-serif;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Markets</a>
+    <a href="#">Economy</a>
+    <a href="#">Finance</a>
+    <a href="#">Technology</a>
+    <a href="#">About Us</a>
+    <a href="#">Contact</a>
+  </nav>
+</header>
+
+<section class="hero-section">
+  <h1 class="hero-title">Your Financial News</h1>
+  <p class="hero-subtitle">Stay informed with the latest financial updates, insights, and market analysis.</p>
+  <div class="search-box">
+    <input type="text" id="searchInput" class="search-input" placeholder="Search for company financial news...">
+    <button id="searchButton" class="search-button">Search</button>
+  </div>
+  <div id="results" style="margin-top: 20px; color: #ffffff; font-family: 'Verdana', sans-serif;"></div>
+</section>
+
+<footer>
+  <p>&copy; 2024 Your Financial News. All rights reserved.</p>
+</footer>
+
+<script>
+  document.getElementById('searchButton').addEventListener('click', function () {
+    const queryText = document.getElementById('searchInput').value.trim();
+    if (!queryText) {
+      alert('Please enter a search term.');
+      return;
+    }
+
+    // save the word into localstorage
+    localStorage.setItem('searchQuery', queryText);
+
+    // transfer to result.html
+    window.location.href = '/results';
+  });
+</script>
+</body>
+</html>

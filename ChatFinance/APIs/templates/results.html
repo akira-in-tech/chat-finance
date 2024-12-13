@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Results - Your Financial News</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    body {
+      background-color: #f8f8f8;
+      font-family: 'Verdana', sans-serif;
+      padding: 20px;
+    }
+
+    header {
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: #ffffff;
+      position: fixed;
+      top: 0;
+      width: calc(100% - 40px);
+      z-index: 100;
+    }
+
+    header nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    header a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+
+    header a:hover {
+      color: #ffd700;
+    }
+
+    .hero-banner {
+      text-align: left;
+      padding-top: 100px;
+      padding-bottom: 40px;
+      background-color: #f8f8f8;
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .hero-banner h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #333;
+      animation: fadeIn 3s ease-in-out;
+    }
+
+    .hero-banner span {
+      color: #0071e3;
+      animation: fadeIn 3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .results-section {
+      padding-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      background-color: #f8f8f8;
+      padding: 40px;
+      border-radius: 15px;
+    }
+
+    .result-card {
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 20px;
+  width: 80%; /* Adjust the width to make it wider */
+  max-width: 800px; /* Max width for larger screens */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  margin: 20px auto; /* Center the result card */
+}
+
+.result-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+
+    .result-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .result-summary {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 15px;
+    }
+
+    .result-link {
+      font-size: 1rem;
+      color: #0071e3;
+      text-decoration: none;
+    }
+
+    .result-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <nav>
+    <a href="/search">Home</a>
+    <a href="#">Markets</a>
+    <a href="#">Economy</a>
+    <a href="#">Finance</a>
+    <a href="#">Technology</a>
+    <a href="#">About Us</a>
+    <a href="#">Contact</a>
+  </nav>
+</header>
+
+<section class="hero-banner">
+  <h1>Get To Know Your <span>Customized News</span>.</h1>
+</section>
+
+<section class="results-section" id="results">
+  <h1 class="visually-hidden">Search Results</h1>
+</section>
+
+<footer>
+  <p>&copy; 2024 Your Financial News. All rights reserved.</p>
+</footer>
+
+<script>
+  window.addEventListener('load', function() {
+    const queryText = localStorage.getItem('searchQuery');
+    const resultsContainer = document.getElementById('results');
+
+    if (queryText) {
+      resultsContainer.innerHTML = '';  // Clear results if any.
+
+      // Fetch query results from the backend API
+      fetch(`/query?text=${encodeURIComponent(queryText)}`)
+        .then(response => response.json())
+        .then(data => {
+          // Check if the response contains expected data
+          if (data.response) {
+            const resultCard = document.createElement('div');
+            resultCard.classList.add('result-card');
+
+            resultCard.innerHTML = `
+            <h3>Query:</h3>
+              <p>${queryText}</p>
+              <h3>Response:</h3>
+              <p>${data.response}</p>
+              <h4>Sentiment: ${data.sentiment}</h4>
+              <p>Confidence: ${data.sentiment_score.toFixed(2)}</p>
+            `;
+            resultsContainer.appendChild(resultCard);
+          } else {
+            resultsContainer.innerHTML = '<p>No results found.</p>';
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching query data:', error);
+          resultsContainer.innerHTML = '<p>Error fetching results. Please try again later.</p>';
+        });
+    } else {
+      resultsContainer.innerHTML = '<p>No query text found. Please try again.</p>';
+    }
+  });
+</script>
+</body>
+</html>

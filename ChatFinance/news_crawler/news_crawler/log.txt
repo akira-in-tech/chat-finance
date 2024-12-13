@@ -1,0 +1,156 @@
+2024-11-20 18:04:47 [scrapy.utils.log] INFO: Scrapy 2.12.0 started (bot: news_crawler)
+2024-11-20 18:04:47 [scrapy.utils.log] INFO: Versions: lxml 5.2.1.0, libxml2 2.13.1, cssselect 1.2.0, parsel 1.9.1, w3lib 2.2.1, Twisted 24.10.0, Python 3.13.0 | packaged by Anaconda, Inc. | (main, Oct  7 2024, 16:40:03) [Clang 14.0.6 ], pyOpenSSL 24.2.1 (OpenSSL 3.4.0 22 Oct 2024), cryptography 43.0.3, Platform macOS-10.16-x86_64-i386-64bit-Mach-O
+2024-11-20 18:04:47 [scrapy.addons] INFO: Enabled addons:
+[]
+2024-11-20 18:04:47 [py.warnings] WARNING: /Users/akira/opt/anaconda3/envs/ChatFinance/lib/python3.13/site-packages/scrapy/utils/request.py:120: ScrapyDeprecationWarning: 'REQUEST_FINGERPRINTER_IMPLEMENTATION' is a deprecated setting.
+It will be removed in a future version of Scrapy.
+  return cls(crawler)
+
+2024-11-20 18:04:47 [scrapy.extensions.telnet] INFO: Telnet Password: 2aa13ce97d9dc0fc
+2024-11-20 18:04:47 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.memusage.MemoryUsage',
+ 'scrapy.extensions.logstats.LogStats']
+2024-11-20 18:04:47 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'news_crawler',
+ 'COOKIES_ENABLED': False,
+ 'FEED_EXPORT_ENCODING': 'utf-8',
+ 'LOG_FILE': 'log.txt',
+ 'LOG_LEVEL': 'INFO',
+ 'NEWSPIDER_MODULE': 'news_crawler.spiders',
+ 'REQUEST_FINGERPRINTER_IMPLEMENTATION': '2.7',
+ 'ROBOTSTXT_OBEY': True,
+ 'SPIDER_MODULES': ['news_crawler.spiders'],
+ 'TWISTED_REACTOR': 'twisted.internet.asyncioreactor.AsyncioSelectorReactor'}
+2024-11-20 18:04:47 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.downloadermiddlewares.robotstxt.RobotsTxtMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2024-11-20 18:04:47 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2024-11-20 18:04:47 [twisted] CRITICAL: Unhandled error in Deferred:
+2024-11-20 18:04:47 [twisted] CRITICAL: 
+Traceback (most recent call last):
+  File "/Users/akira/opt/anaconda3/envs/ChatFinance/lib/python3.13/site-packages/twisted/internet/defer.py", line 2017, in _inlineCallbacks
+    result = context.run(gen.send, result)
+  File "/Users/akira/opt/anaconda3/envs/ChatFinance/lib/python3.13/site-packages/scrapy/crawler.py", line 152, in crawl
+    self.engine = self._create_engine()
+                  ~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/akira/opt/anaconda3/envs/ChatFinance/lib/python3.13/site-packages/scrapy/crawler.py", line 166, in _create_engine
+    return ExecutionEngine(self, lambda _: self.stop())
+  File "/Users/akira/opt/anaconda3/envs/ChatFinance/lib/python3.13/site-packages/scrapy/core/engine.py", line 102, in __init__
+    self.scraper: Scraper = Scraper(crawler)
+                            ~~~~~~~^^^^^^^^^
+  File "/Users/akira/opt/anaconda3/envs/ChatFinance/lib/python3.13/site-packages/scrapy/core/scraper.py", line 101, in __init__
+    self.itemproc: ItemPipelineManager = itemproc_cls.from_crawler(crawler)
+                                         ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/akira/opt/anaconda3/envs/ChatFinance/lib/python3.13/site-packages/scrapy/middleware.py", line 77, in from_crawler
+    return cls._from_settings(crawler.settings, crawler)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/akira/opt/anaconda3/envs/ChatFinance/lib/python3.13/site-packages/scrapy/middleware.py", line 86, in _from_settings
+    mwcls = load_object(clspath)
+  File "/Users/akira/opt/anaconda3/envs/ChatFinance/lib/python3.13/site-packages/scrapy/utils/misc.py", line 71, in load_object
+    mod = import_module(module)
+  File "/Users/akira/opt/anaconda3/envs/ChatFinance/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/Users/akira/Downloads/5500-main/ChatFinance/news_crawler/news_crawler/pipelines.py", line 14, in <module>
+    import pymongo
+ModuleNotFoundError: No module named 'pymongo'
+2024-11-20 18:05:03 [scrapy.utils.log] INFO: Scrapy 2.12.0 started (bot: news_crawler)
+2024-11-20 18:05:03 [scrapy.utils.log] INFO: Versions: lxml 5.2.1.0, libxml2 2.13.1, cssselect 1.2.0, parsel 1.9.1, w3lib 2.2.1, Twisted 24.10.0, Python 3.13.0 | packaged by Anaconda, Inc. | (main, Oct  7 2024, 16:40:03) [Clang 14.0.6 ], pyOpenSSL 24.2.1 (OpenSSL 3.4.0 22 Oct 2024), cryptography 43.0.3, Platform macOS-10.16-x86_64-i386-64bit-Mach-O
+2024-11-20 18:05:03 [scrapy.addons] INFO: Enabled addons:
+[]
+2024-11-20 18:05:03 [py.warnings] WARNING: /Users/akira/opt/anaconda3/envs/ChatFinance/lib/python3.13/site-packages/scrapy/utils/request.py:120: ScrapyDeprecationWarning: 'REQUEST_FINGERPRINTER_IMPLEMENTATION' is a deprecated setting.
+It will be removed in a future version of Scrapy.
+  return cls(crawler)
+
+2024-11-20 18:05:03 [scrapy.extensions.telnet] INFO: Telnet Password: 19678d73c6bb2aa1
+2024-11-20 18:05:03 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.memusage.MemoryUsage',
+ 'scrapy.extensions.logstats.LogStats']
+2024-11-20 18:05:03 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'news_crawler',
+ 'COOKIES_ENABLED': False,
+ 'FEED_EXPORT_ENCODING': 'utf-8',
+ 'LOG_FILE': 'log.txt',
+ 'LOG_LEVEL': 'INFO',
+ 'NEWSPIDER_MODULE': 'news_crawler.spiders',
+ 'REQUEST_FINGERPRINTER_IMPLEMENTATION': '2.7',
+ 'ROBOTSTXT_OBEY': True,
+ 'SPIDER_MODULES': ['news_crawler.spiders'],
+ 'TWISTED_REACTOR': 'twisted.internet.asyncioreactor.AsyncioSelectorReactor'}
+2024-11-20 18:05:03 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.downloadermiddlewares.robotstxt.RobotsTxtMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2024-11-20 18:05:03 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2024-11-20 18:05:03 [twisted] CRITICAL: Unhandled error in Deferred:
+2024-11-20 18:05:03 [twisted] CRITICAL: 
+Traceback (most recent call last):
+  File "/Users/akira/opt/anaconda3/envs/ChatFinance/lib/python3.13/site-packages/twisted/internet/defer.py", line 2017, in _inlineCallbacks
+    result = context.run(gen.send, result)
+  File "/Users/akira/opt/anaconda3/envs/ChatFinance/lib/python3.13/site-packages/scrapy/crawler.py", line 152, in crawl
+    self.engine = self._create_engine()
+                  ~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/akira/opt/anaconda3/envs/ChatFinance/lib/python3.13/site-packages/scrapy/crawler.py", line 166, in _create_engine
+    return ExecutionEngine(self, lambda _: self.stop())
+  File "/Users/akira/opt/anaconda3/envs/ChatFinance/lib/python3.13/site-packages/scrapy/core/engine.py", line 102, in __init__
+    self.scraper: Scraper = Scraper(crawler)
+                            ~~~~~~~^^^^^^^^^
+  File "/Users/akira/opt/anaconda3/envs/ChatFinance/lib/python3.13/site-packages/scrapy/core/scraper.py", line 101, in __init__
+    self.itemproc: ItemPipelineManager = itemproc_cls.from_crawler(crawler)
+                                         ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/akira/opt/anaconda3/envs/ChatFinance/lib/python3.13/site-packages/scrapy/middleware.py", line 77, in from_crawler
+    return cls._from_settings(crawler.settings, crawler)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/akira/opt/anaconda3/envs/ChatFinance/lib/python3.13/site-packages/scrapy/middleware.py", line 86, in _from_settings
+    mwcls = load_object(clspath)
+  File "/Users/akira/opt/anaconda3/envs/ChatFinance/lib/python3.13/site-packages/scrapy/utils/misc.py", line 71, in load_object
+    mod = import_module(module)
+  File "/Users/akira/opt/anaconda3/envs/ChatFinance/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/Users/akira/Downloads/5500-main/ChatFinance/news_crawler/news_crawler/pipelines.py", line 14, in <module>
+    import pymongo
+ModuleNotFoundError: No module named 'pymongo'

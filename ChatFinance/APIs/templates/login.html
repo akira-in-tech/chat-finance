@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login & Register</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: url('{{ url_for("static", filename="img/FinicalMainpage.png") }}') no-repeat center center;
+      background-size: cover;
+      overflow-x: hidden;
+    }
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      width: 350px;
+      text-align: center;
+    }
+    .container h1 {
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      color: #333;
+    }
+    .form-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+    .form-group label {
+      font-size: 0.9rem;
+      color: #555;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    .btn {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      color: #fff;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+    .toggle-link {
+      margin-top: 10px;
+      display: block;
+      color: #007bff;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    .toggle-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="form-title">Login</h1>
+    <form id="auth-form">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Enter your email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required>
+      </div>
+      <button type="submit" class="btn" id="submit-btn">Login</button>
+    </form>
+    <a href="#" id="toggle-link" class="toggle-link">Don't have an account? Register</a>
+  </div>
+
+  <script>
+    const formTitle = document.getElementById('form-title');
+    const authForm = document.getElementById('auth-form');
+    const toggleLink = document.getElementById('toggle-link');
+    const submitBtn = document.getElementById('submit-btn');
+
+    let isLogin = true;
+
+    //Switch login and registration mode
+    toggleLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      isLogin = !isLogin;
+      formTitle.textContent = isLogin ? 'Login' : 'Register';
+      submitBtn.textContent = isLogin ? 'Login' : 'Register';
+      toggleLink.textContent = isLogin
+        ? "Don't have an account? Register"
+        : 'Already have an account? Login';
+    });
+
+    // Handle form submission
+    authForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  if (isLogin) {
+    // Redirect to Flask login route
+    fetch('{{ url_for("login") }}', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username: email, password }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert('Login successful!');
+        window.location.href = '/search';  // Redirect based on the backend response
+      } else {
+        alert(data.message || 'Login failed.');
+      }
+    });
+  } else {
+    // Redirect to Flask register route
+    fetch('{{ url_for("register") }}', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username: email, password }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert('Registration successful!');
+        isLogin = true;
+        formTitle.textContent = 'Login';
+        submitBtn.textContent = 'Login';
+        toggleLink.textContent = "Don't have an account? Register";
+      } else {
+        alert(data.message || 'Registration failed.');
+      }
+    });
+  }
+});
+
+  </script>
+</body>
+</html>

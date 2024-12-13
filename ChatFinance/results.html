@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Results - Your Financial News</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background-color: #f8f8f8;
+      font-family: 'Verdana', sans-serif;
+      padding: 20px;
+    }
+
+    header {
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: #ffffff;
+      position: fixed;
+      top: 0;
+      width: calc(100% - 40px);
+      z-index: 100;
+    }
+
+    header nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    header a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1.2rem;
+    }
+
+    header a:hover {
+      color: #ffd700;
+    }
+
+    .hero-banner {
+      text-align: left;
+      padding-top: 100px;
+      padding-bottom: 40px;
+      background-color: #f8f8f8;
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .hero-banner h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #333;
+      animation: fadeIn 3s ease-in-out;
+    }
+
+    .hero-banner span {
+      color: #0071e3;
+      animation: fadeIn 3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .results-section {
+      padding-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      background-color: #f8f8f8;
+      padding: 40px;
+      border-radius: 15px;
+    }
+
+    .result-card {
+      background-color: #ffffff;
+      border-radius: 15px;
+      padding: 20px;
+      width: 300px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+
+    .result-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .result-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .result-summary {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 15px;
+    }
+
+    .result-link {
+      font-size: 1rem;
+      color: #0071e3;
+      text-decoration: none;
+    }
+
+    .result-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="#">Markets</a>
+    <a href="#">Economy</a>
+    <a href="#">Finance</a>
+    <a href="#">Technology</a>
+    <a href="#">About Us</a>
+    <a href="#">Contact</a>
+  </nav>
+</header>
+
+<section class="hero-banner">
+  <h1>Get To Know Your <span>Customized News</span>.</h1>
+</section>
+
+<section class="results-section" id="results">
+  <h1 class="visually-hidden">Search Results</h1>
+</section>
+
+<footer>
+  <p>&copy; 2024 Your Financial News. All rights reserved.</p>
+</footer>
+
+<script type="module">
+  import placeholderData from './js/mockData.js';
+
+  window.addEventListener('load', function() {
+    const queryText = localStorage.getItem('searchQuery');
+    if (queryText) {
+      const resultsContainer = document.getElementById('results');
+      resultsContainer.innerHTML = '';
+
+      // Try fetching results from backend API
+      fetch(`http://localhost:5600/query?text=${encodeURIComponent(queryText)}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.text();
+        })
+        .then(data => {
+          // Display API response as result (assuming the data is JSON)
+          const parsedData = JSON.parse(data);
+          parsedData.forEach(item => {
+            const resultCard = document.createElement('div');
+            resultCard.classList.add('result-card');
+            resultCard.innerHTML = `
+              <div class="result-title">${item.title}</div>
+              <div class="result-summary">${item.summary}</div>
+              <a href="${item.link}" target="_blank" class="result-link">Read more</a>
+            `;
+            resultsContainer.appendChild(resultCard);
+          });
+        })
+        .catch(error => {
+          console.error('There has been a problem with your fetch operation:', error);
+          // If API fails, use placeholder data
+          placeholderData.forEach(item => {
+            const resultCard = document.createElement('div');
+            resultCard.classList.add('result-card');
+            resultCard.innerHTML = `
+              <div class="result-title">${item.title}</div>
+              <div class="result-summary">${item.summary}</div>
+              <a href="${item.link}" target="_blank" class="result-link">Read more</a>
+            `;
+            resultsContainer.appendChild(resultCard);
+          });
+        });
+    }
+  });
+</script>
+</body>
+</html>

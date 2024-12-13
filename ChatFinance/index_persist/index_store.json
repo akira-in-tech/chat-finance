@@ -1,0 +1,5 @@
+<<<<<<< HEAD
+{}
+=======
+{"index_store/data": {"3cccfee9-1429-41f7-ba1a-6604068e3cc8": {"__type__": "vector_store", "__data__": "{\"index_id\": \"3cccfee9-1429-41f7-ba1a-6604068e3cc8\", \"summary\": null, \"nodes_dict\": {\"269f2882-3aa7-4715-be8d-06056c891a66\": \"269f2882-3aa7-4715-be8d-06056c891a66\", \"9316a362-0582-420c-bec2-8be58c2f5ed3\": \"9316a362-0582-420c-bec2-8be58c2f5ed3\", \"dac44e27-ab23-4312-9e2f-c8c4adbffa6c\": \"dac44e27-ab23-4312-9e2f-c8c4adbffa6c\", \"10cde64c-90c6-4d1c-919b-7b5bc612e09e\": \"10cde64c-90c6-4d1c-919b-7b5bc612e09e\", \"5d340179-ec56-4fd9-9c4c-328356523c31\": \"5d340179-ec56-4fd9-9c4c-328356523c31\", \"703d8ac3-b766-4d76-b1b0-e7b7fd88d513\": \"703d8ac3-b766-4d76-b1b0-e7b7fd88d513\", \"4ed178f5-5f6a-4d2f-899e-99bfcaa96b7e\": \"4ed178f5-5f6a-4d2f-899e-99bfcaa96b7e\"}, \"doc_id_dict\": {}, \"embeddings_dict\": {}}"}}}
+>>>>>>> Mohitha
