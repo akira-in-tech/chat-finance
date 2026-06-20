@@ -1,6 +1,7 @@
 import os
+from dotenv import load_dotenv
 
-os.environ['OPENAI_API_KEY'] = "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"
+load_dotenv()
 
 
 from flask import Flask
